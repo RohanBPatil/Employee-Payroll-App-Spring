@@ -4,19 +4,20 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 import com.capgemini.employeepayrollapp.dto.EmployeePayrollDTO;
 
 @Entity
+@Table(name = "employee")
 public class Employee {
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 	private long salary;
 
 	public Employee() {
-
 	}
 
 	public Employee(EmployeePayrollDTO employeeDTO) {
