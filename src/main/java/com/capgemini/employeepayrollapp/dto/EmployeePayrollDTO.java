@@ -1,11 +1,13 @@
 package com.capgemini.employeepayrollapp.dto;
 
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.Pattern;
 
-public class EmployeePayrollDTO {
-	@NotEmpty(message = "Name should not be null")
-	public String name;
-	@NotNull
-	public long salary;
+import lombok.Data;
+
+public @Data class EmployeePayrollDTO {
+	@Pattern(regexp = "^[A-Z][a-zA-z\\s]{2,}$", message = "Employee name invalid")
+	private String name;
+	@Min(value = 500, message = "Minimum wage should be atleast 500")
+	private long salary;
 }

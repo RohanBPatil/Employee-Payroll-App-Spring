@@ -20,9 +20,15 @@ public class Employee {
 	public Employee() {
 	}
 
+	public Employee(long id, EmployeePayrollDTO employeeDTO) {
+		this.id = id;
+		this.name = employeeDTO.getName();
+		this.salary = employeeDTO.getSalary();
+	}
+	
 	public Employee(EmployeePayrollDTO employeeDTO) {
-		this.name = employeeDTO.name;
-		this.salary = employeeDTO.salary;
+		this.name = employeeDTO.getName();
+		this.salary = employeeDTO.getSalary();
 	}
 
 	public Long getId() {

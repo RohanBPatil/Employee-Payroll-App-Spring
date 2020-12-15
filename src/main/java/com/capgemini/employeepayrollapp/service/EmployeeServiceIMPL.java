@@ -4,8 +4,6 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-
 import com.capgemini.employeepayrollapp.dto.EmployeePayrollDTO;
 import com.capgemini.employeepayrollapp.exception.EmployeeException;
 import com.capgemini.employeepayrollapp.model.Employee;
@@ -17,7 +15,7 @@ public class EmployeeServiceIMPL implements IEmployeeService {
 	IEmployeeRepository employeeRepository;
 
 	@Override
-	public Employee addEmployee(EmployeePayrollDTO employeeDTO) {
+	public Employee addEmployee(EmployeePayrollDTO employeeDTO) throws EmployeeException {
 		Employee emp = new Employee(employeeDTO);
 		emp = employeeRepository.save(emp);
 		return emp;
@@ -29,25 +27,25 @@ public class EmployeeServiceIMPL implements IEmployeeService {
 	}
 
 	@Override
-	public void updateEmployeeById(Long id, EmployeePayrollDTO employeeDTO) throws EmployeeException {
+	public Employee updateEmployeeById(Long id, EmployeePayrollDTO employeeDTO) throws EmployeeException {
 		Employee emp = getEmployeeById(id);
-		if (employeeDTO.name != null) {
-			emp.setName(employeeDTO.name);
+		if (employeeDTO.getName() != null) {
+			emp.setName(employeeDTO.getName());
 		}
-		if (employeeDTO.salary != 0.0) {
-			emp.setSalary(employeeDTO.salary);
+		if (employeeDTO.getSalary() != 0.0) {
+			emp.setSalary(employeeDTO.getSalary());
 		}
 		employeeRepository.save(emp);
+		return emp;
 	}
 
 	@Override
-	@Transactional
 	public void deleteEmployeeById(Long id) {
 		employeeRepository.deleteById(id);
 	}
 
 	@Override
-	public List getAllEmployees() {
+	public List<Employee> getAllEmployees() {
 		return employeeRepository.findAll();
 	}
 }
